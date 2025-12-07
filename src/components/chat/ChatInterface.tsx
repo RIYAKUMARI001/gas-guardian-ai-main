@@ -23,7 +23,7 @@ const initialMessages: Message[] = [
   {
     id: "1",
     role: "assistant",
-    content: "👋 Welcome to Mempool Mentor! I'm your AI-powered gas optimization copilot for Flare Network.\n\nI can help you:\n• Analyze the best time to execute transactions\n• Calculate gas costs in real FLR and USD\n• Set up GasGuard protection for your swaps\n• Compare costs across different chains\n\nWhat would you like to do today?",
+    content: "👋 Welcome to Gas-Guard! I'm your AI-powered gas optimization copilot for Flare Network.\n\nI can help you:\n• Analyze the best time to execute transactions\n• Calculate gas costs in real FLR and USD\n• Set up GasGuard protection for your swaps\n• Compare costs across different chains\n\nWhat would you like to do today?",
     timestamp: new Date(),
   },
 ];

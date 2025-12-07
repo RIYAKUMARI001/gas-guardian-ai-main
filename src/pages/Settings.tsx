@@ -29,7 +29,7 @@ const Settings = () => {
           <span className="gradient-text">Settings</span>
         </h1>
         <p className="text-muted-foreground">
-          Configure your Mempool Mentor preferences
+          Configure your Gas-Guard preferences
         </p>
       </div>
 
@@ -107,8 +107,8 @@ const Settings = () => {
                 {error && (
                   <p className="text-sm text-destructive mb-3">{error}</p>
                 )}
-                <Button 
-                  variant="default" 
+                <Button
+                  variant="default"
                   onClick={connectWallet}
                   disabled={loading}
                   className="w-full"

@@ -35,7 +35,7 @@ const Index = () => {
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-8">
         <div>
           <h1 className="text-3xl font-bold tracking-tight mb-2">
-            <span className="gradient-text">Mempool Mentor</span>
+            <span className="gradient-text">Gas-Guard</span>
           </h1>
           <p className="text-muted-foreground">
             AI-powered gas optimization for Flare Network

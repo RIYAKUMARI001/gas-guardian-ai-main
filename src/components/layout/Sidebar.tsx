@@ -91,8 +91,7 @@ export function Sidebar() {
           </div>
           {!collapsed && (
             <div className="flex flex-col">
-              <span className="font-bold gradient-text">Mempool</span>
-              <span className="text-xs text-muted-foreground">Mentor</span>
+              <span className="font-bold gradient-text">Gas-Guard</span>
             </div>
           )}
         </div>
