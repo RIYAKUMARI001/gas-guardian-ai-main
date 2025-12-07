@@ -1,6 +1,6 @@
-# Gas-Guard AI (Gas-Guardian)
+# Gas-Guard
 
-Welcome! This repository contains Gas-Guard AI — a full-stack project that monitors blockchain gas prices, runs predictive models to help optimize transaction timing, and provides a web dashboard and AI assistant to help users make cost-effective decisions.
+Welcome! This repository contains Gas-Guard — a full-stack project that monitors blockchain gas prices, runs predictive models to help optimize transaction timing, and provides a web dashboard and AI assistant to help users make cost-effective decisions.
 
 **Quick summary:**
 - Purpose: Real-time gas monitoring + AI predictions for the Flare network (and similar EVM chains).
@@ -11,9 +11,8 @@ Welcome! This repository contains Gas-Guard AI — a full-stack project that mon
 - Repo structure (key folders)
 - Prerequisites
 - Quickstart (dev) — PowerShell commands
-- Backend setup (Prisma, envs)
-- Contracts (Hardhat): compile, test, deploy
-- Python AI scripts (optional)
+- Backend setup 
+- Contracts: compile, test, deploy
 - Running with Docker (infra)
 - Testing and linting
 - Troubleshooting & notes
@@ -21,9 +20,8 @@ Welcome! This repository contains Gas-Guard AI — a full-stack project that mon
 
 **Project highlights**
 - Real-time gas price fetching and monitoring (services in `backend/src/jobs`).
-- AI model training and prediction pipelines (scripts in `backend/src/jobs` and `gas_fee_monitor.py`).
 - Frontend UI with charts, chat assistant, and wallet integration (React components in `src/components`).
-- Smart contract layer in `contracts/` with Hardhat scripts and tests.
+- Smart contract layer in `contracts/` with  scripts and tests.
 
 ---
 
@@ -60,7 +58,7 @@ In short: the app pulls gas and oracle signals directly from Flare services (FTS
   - `backend/src/jobs/` — background jobs (pollers, fetchers, trainers)
   - `backend/src/services/` — core backend services
   - `backend/prisma/schema.prisma` — database schema
-- `contracts/` — Solidity contracts, tests, and Hardhat scripts.
+- `contracts/` — Solidity contracts, tests, and scripts.
 
 **Prerequisites (recommendations)**
 - Node.js 18+ and `npm` (or `pnpm`/`yarn`) installed.
@@ -210,9 +208,4 @@ If you add or update env variables, include `.env.example` updates and document 
 - For questions or to collaborate, open an issue in this repository.
 
 ---
-
-If you'd like, I can also:
-- run the tests locally and report failures,
-- add a `CONTRIBUTING.md` with a PR checklist,
-- or prepare a simple `docker-compose.override.yml` tuned for local dev.
 
