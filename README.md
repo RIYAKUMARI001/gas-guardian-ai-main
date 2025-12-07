@@ -25,6 +25,12 @@ Welcome! This repository contains Gas-Guard — a full-stack project that monito
 - Developers and projects that want to understand gas trends and optimize user experience.
 - Anyone interested in Flare network capabilities (FTSOv2, FDC, Smart Accounts).
 
+Image Glimpse:
+<img width="965" height="544" alt="image" src="https://github.com/user-attachments/assets/3ea96e2b-d2c1-44fa-8a13-6d61dc9ef994" />
+<img width="972" height="527" alt="image" src="https://github.com/user-attachments/assets/e36bd724-f417-4e50-9252-03e10b12e29c" />
+
+
+
 **Table of contents**
 - Project highlights
 - Repo structure (key folders)
