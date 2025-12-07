@@ -6,6 +6,25 @@ Welcome! This repository contains Gas-Guard — a full-stack project that monito
 - Purpose: Real-time gas monitoring + AI predictions for the Flare network (and similar EVM chains).
 - Components: Frontend (Vite + React + TypeScript), Backend (Node.js + Express + Prisma), Smart Contracts (Hardhat), AI utilities (Python scripts).
 
+- ## Project Description
+
+**Problem:** Gas fees on blockchain networks can be expensive and unpredictable. Users often overpay for transactions without knowing the optimal time to execute them, and comparing gas costs across different chains is tedious and error-prone.
+
+**Solution:** Gas-Guard AI is an intelligent monitoring and optimization platform that:
+1. **Tracks gas prices in real-time** across the Flare network (and comparable EVM chains) using Flare's FTSOv2 oracle and FDC data connectors.
+2. **Predicts gas trends** using AI/ML models trained on historical data, suggesting optimal times for users to execute transactions and save money.
+3. **Compares chains** — users can see gas costs side-by-side across Ethereum, Polygon, BSC, Avalanche, and Flare to pick the cheapest option.
+4. **Provides smart account integration** — works seamlessly with Flare Smart Accounts for secure, gasless-like transaction execution.
+5. **Offers an AI assistant** — a chat interface that answers questions about gas fees, gives personalized recommendations, and explains why certain times are better to transact.
+
+**Why Flare?** Gas-Guard AI uses Flare's FTSOv2 oracle for accurate, decentralized price data and FDC to pull cross-chain gas information. This ensures predictions are based on real, on-chain data — not centralized APIs or estimates.
+
+**Who is it for?**
+- Users who want to minimize gas costs on their transactions.
+- DeFi traders who need to time their moves during low-fee windows.
+- Developers and projects that want to understand gas trends and optimize user experience.
+- Anyone interested in Flare network capabilities (FTSOv2, FDC, Smart Accounts).
+
 **Table of contents**
 - Project highlights
 - Repo structure (key folders)
