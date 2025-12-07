@@ -11,7 +11,7 @@ bun-debug.log*
 # Dependencies
 node_modules/
 bun.lockb
-package-lock.json
+# package-lock.json
 yarn.lock
 pnpm-lock.yaml
 
@@ -94,3 +94,11 @@ typechain-types/
 .vercel
 .netlify
 .turbo
+
+# Python
+venv/
+__pycache__/
+*.py[cod]
+
+# Data
+gas_monitor_data.json
