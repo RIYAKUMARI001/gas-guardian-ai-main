@@ -10,6 +10,7 @@ import { useFTSOv2 } from "@/hooks/useFTSOv2";
 import { useGasGuard } from "@/hooks/useGasGuard";
 import { useWallet } from "@/hooks/useWallet";
 import { toast } from "@/hooks/use-toast";
+import { authApi } from "@/services/api";
 
 type TransactionType = "swap" | "deploy" | "mint";
 type GuardStatus = "idle" | "waiting" | "executing" | "completed" | "failed";
@@ -22,11 +23,11 @@ interface GuardConfig {
 }
 
 export function GasGuardPanel() {
-  const { address, connected } = useWallet();
+  const { address, connected, signer } = useWallet();
   const { data: gasData, isLoading: gasLoading } = useGasPrice();
   const { getPrice } = useFTSOv2();
   const { scheduleExecution, loading: guardLoading } = useGasGuard();
-  
+
   const [txType, setTxType] = useState<TransactionType>("swap");
   const [status, setStatus] = useState<GuardStatus>("idle");
   const [executionId, setExecutionId] = useState<string | null>(null);
@@ -59,7 +60,7 @@ export function GasGuardPanel() {
   const conditionsMet = currentGas <= config.maxGasPrice && currentFlrPrice >= config.minFlrPrice;
 
   const handleActivate = async () => {
-    if (!connected || !address) {
+    if (!connected || !address || !signer) {
       toast({
         title: "Wallet Not Connected",
         description: "Please connect your wallet first",
@@ -71,6 +72,27 @@ export function GasGuardPanel() {
     setStatus("waiting");
 
     try {
+      // Check for auth token
+      let token = localStorage.getItem('token');
+      if (!token) {
+        toast({
+          title: "Authentication Required",
+          description: "Please sign the message to verify ownership",
+        });
+
+        const message = "Login to GasGuard";
+        const signature = await signer.signMessage(message);
+
+        const loginRes = await authApi.login(address, signature);
+        if (loginRes.success) {
+          token = loginRes.data.token;
+          localStorage.setItem('token', token);
+          toast({ title: "Authenticated", description: "Login successful" });
+        } else {
+          throw new Error("Login failed");
+        }
+      }
+
       // Prepare transaction data based on type
       let targetAddress = "";
       let transactionData = "0x";
@@ -280,7 +302,7 @@ export function GasGuardPanel() {
               </>
             )}
           </Button>
-          
+
           {!connected && (
             <p className="text-sm text-center text-muted-foreground">
               Connect your wallet to activate GasGuard
@@ -331,7 +353,7 @@ export function GasGuardPanel() {
           {/* Conditions Check */}
           <div className="space-y-3">
             <h4 className="text-sm font-medium text-muted-foreground">Condition Status</h4>
-            
+
             <div className="flex items-center justify-between p-3 rounded-lg bg-muted/50">
               <div className="flex items-center gap-2">
                 <Fuel className="h-4 w-4 text-muted-foreground" />
@@ -377,7 +399,7 @@ export function GasGuardPanel() {
                 )}
               </div>
             </div>
-            
+
             {executionId && (
               <div className="p-3 rounded-lg bg-primary/10 border border-primary/30">
                 <div className="text-xs text-muted-foreground mb-1">Execution ID</div>

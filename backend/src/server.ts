@@ -9,6 +9,7 @@ import leaderboardRoutes from './api/routes/leaderboard.js';
 import compareRoutes from './api/routes/compare.js';
 import analyticsRoutes from './api/routes/analytics.js';
 import healthRoutes from './api/routes/health.js';
+import authRoutes from './api/routes/auth.js';
 import { errorHandler } from './api/middleware/errorHandler.js';
 import { rateLimit } from './api/middleware/rateLimit.js';
 import BlockchainMonitor from './services/BlockchainMonitor.js';
@@ -49,6 +50,7 @@ app.get('/metrics', (req, res) => {
 
 // API Routes
 app.use('/api', healthRoutes);
+app.use('/api/auth', authRoutes);
 app.use('/api/chat', chatRoutes);
 app.use('/api/gas', gasRoutes);
 app.use('/api/transactions', transactionRoutes);

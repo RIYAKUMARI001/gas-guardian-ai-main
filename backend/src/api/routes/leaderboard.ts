@@ -9,7 +9,10 @@ router.get('/', async (req, res) => {
   try {
     const { limit = 100, timeframe = 'all' } = req.query;
 
-    const cacheKey = `leaderboard:${timeframe}:${limit}`;
+    const isDefaultLimit = Number(limit) === 100;
+    // Use standard keys for default limit so they can be invalidated by jobs
+    const cacheKey = isDefaultLimit ? `leaderboard:${timeframe}` : `leaderboard:${timeframe}:${limit}`;
+
     const cached = await redisClient.get(cacheKey);
     if (cached) {
       res.json({

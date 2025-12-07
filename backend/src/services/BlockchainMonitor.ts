@@ -79,7 +79,8 @@ export class BlockchainMonitor {
       }
 
       // Invalidate leaderboard cache
-      await redisClient.del('leaderboard:global');
+      await redisClient.del('leaderboard:all');
+      await redisClient.del('leaderboard:month');
     } catch (error) {
       console.error('Error handling ExecutionScheduled:', error);
     }
@@ -106,7 +107,7 @@ export class BlockchainMonitor {
           where: { id: transaction.id },
           data: {
             status: 'COMPLETED',
-            executedAt: new Date(event.blockNumber ? await this.provider.getBlock(event.blockNumber).then(b => new Date(b.timestamp * 1000)) : new Date()),
+            executedAt: new Date(event.blockNumber ? await this.provider.getBlock(event.blockNumber).then(b => b ? new Date(b.timestamp * 1000) : new Date()) : new Date()),
             completedAt: new Date(),
             actualGasPrice: Number(gasUsed),
             actualFlrPrice: Number(flrPrice) / 1e8, // Assuming 8 decimals
@@ -129,7 +130,8 @@ export class BlockchainMonitor {
       }
 
       // Invalidate leaderboard cache
-      await redisClient.del('leaderboard:global');
+      await redisClient.del('leaderboard:all');
+      await redisClient.del('leaderboard:month');
     } catch (error) {
       console.error('Error handling SafeExecutionCompleted:', error);
     }

@@ -27,4 +27,11 @@ export const analyticsApi = {
     },
 };
 
+export const authApi = {
+    login: async (walletAddress: string, signature: string) => {
+        const response = await api.post('/auth/login', { walletAddress, signature });
+        return response.data;
+    }
+};
+
 export default api;

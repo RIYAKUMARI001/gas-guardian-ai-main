@@ -4,11 +4,11 @@ import prisma from '../config/database.js';
 
 const isRedisEnabled = () => {
   const redisUrl = process.env.REDIS_URL;
-  return redisUrl && 
-         redisUrl.trim() !== '' && 
-         redisUrl !== 'redis://localhost:6379' &&
-         redisUrl.toLowerCase() !== 'false' &&
-         redisUrl.toLowerCase() !== 'no';
+  return redisUrl &&
+    redisUrl.trim() !== '' &&
+    redisUrl !== 'redis://localhost:6379' &&
+    redisUrl.toLowerCase() !== 'false' &&
+    redisUrl.toLowerCase() !== 'no';
 };
 
 let leaderboardQueue: Queue | null = null;
@@ -53,7 +53,6 @@ if (isRedisEnabled()) {
           });
         }
 
-        await redisClient.del('leaderboard:global');
         await redisClient.del('leaderboard:month');
         await redisClient.del('leaderboard:all');
 
