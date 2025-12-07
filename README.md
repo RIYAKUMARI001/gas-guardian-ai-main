@@ -30,6 +30,8 @@ Image Glimpse:
 <img width="972" height="527" alt="image" src="https://github.com/user-attachments/assets/e36bd724-f417-4e50-9252-03e10b12e29c" />
 
 
+Video Link : https://drive.google.com/file/d/1MOb-TqTQBm_BfzyihG-6lT9UbTxFj8vN/view?usp=sharing
+
 
 **Table of contents**
 - Project highlights
