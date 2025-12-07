@@ -2,6 +2,7 @@ import { ethers } from 'ethers';
 import { getProvider } from '../config/blockchain.js';
 import redisClient from '../config/redis.js';
 import prisma from '../config/database.js';
+import EtherscanService from './EtherscanService.js';
 
 interface GasPrice {
   gwei: number;
@@ -21,13 +22,25 @@ export class GasOracleService {
     }
 
     try {
-      const feeData = await this.provider.getFeeData();
-      const gasPrice = feeData.gasPrice || feeData.maxFeePerGas || BigInt(25000000000); // Default to 25 gwei if null
-      const gwei = Number(gasPrice) / 1e9;
+      // Try Etherscan first
+      const etherscanData = await EtherscanService.getGasOracle();
+      let gwei: number;
+      let wei: string;
+
+      if (etherscanData) {
+        gwei = etherscanData.propose;
+        wei = (BigInt(Math.floor(gwei * 1e9))).toString();
+      } else {
+        // Fallback to provider
+        const feeData = await this.provider.getFeeData();
+        const gasPrice = feeData.gasPrice || feeData.maxFeePerGas || BigInt(25000000000);
+        gwei = Number(gasPrice) / 1e9;
+        wei = gasPrice.toString();
+      }
 
       const result: GasPrice = {
         gwei: Math.round(gwei * 100) / 100,
-        wei: gasPrice.toString(),
+        wei: wei,
         timestamp: Date.now(),
       };
 
@@ -40,7 +53,7 @@ export class GasOracleService {
       return result;
     } catch (error) {
       console.error('Error fetching gas price:', error);
-      // Fallback to avoid crashing the transaction scheduling
+      // Fallback
       return {
         gwei: 25,
         wei: "25000000000",
@@ -48,6 +61,8 @@ export class GasOracleService {
       };
     }
   }
+
+
 
   async getGasByPercentile(percentile: number): Promise<number> {
     // Get last 24 hours of gas history
@@ -72,7 +87,7 @@ export class GasOracleService {
 
       const index = Math.floor((history.length * percentile) / 100);
       const val = history[index]?.gasPrice;
-      return val ? (typeof val === 'number' ? val : val.toNumber()) : 0;
+      return val ? Number(val) : 0;
     } catch (error) {
       console.error('Error fetching gas history (DB might be down):', error);
       return 50; // Fallback to safe default (medium congestion assumption)
@@ -129,7 +144,7 @@ export class GasOracleService {
 
       return history.map(h => ({
         timestamp: h.timestamp,
-        gasPrice: typeof h.gasPrice === 'number' ? h.gasPrice : h.gasPrice.toNumber(),
+        gasPrice: Number(h.gasPrice),
       }));
     } catch (error) {
       console.error('Error fetching historical gas prices:', error);
